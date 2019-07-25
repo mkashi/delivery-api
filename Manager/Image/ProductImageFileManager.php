@@ -52,7 +52,8 @@ class ProductImageFileManager implements ImageManagerInterface
          * @var Product
          */
         $product = $options['product'];
-        $movedFile = $file->move($this->destinationDirectory, $product->getId().'.'.$file->getClientOriginalExtension());
+        $imageId = $product->getId() ? $product->getId() : md5(uniqid());
+        $movedFile = $file->move($this->destinationDirectory, $imageId.'.'.$file->getClientOriginalExtension());
 
         $image = new Image();
         $image->setPath($movedFile->getFilename());
