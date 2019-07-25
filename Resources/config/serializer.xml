@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <!-- city normalizer -->
+        <service id="delivery_api.serializer.normalizer.city" class="Delivery\ApiBundle\Serializer\CityNormalizer">
+            <tag name="serializer.normalizer"/>
+        </service>
+
+        <!-- form error normalizer -->
+        <service id="delivery_api.serializer.normalizer.form_error" class="Delivery\ApiBundle\Serializer\FormErrorNormalizer">
+            <tag name="serializer.normalizer"/>
+        </service>
+
+
+        <!-- circular reference -->
+        <service id="delivery_api.serializer.circular_reference_handler" class="Delivery\ApiBundle\Serializer\CircularReferenceHandler">
+        </service>
+    </services>
+</container>

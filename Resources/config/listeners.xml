@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="delivery_api.event_listener.image_upload" class="Delivery\ApiBundle\EventListener\ImageUploadListener">
+            <argument type="service" id="delivery_api.manager.file_uploader"></argument>
+            <tag name="doctrine.event_listener" event="prePersist"></tag>
+            <tag name="doctrine.event_listener" event="preUpdate"></tag>
+        </service>
+
+        <service id="delivery_api.event_listener.authentication_success" class="Delivery\ApiBundle\EventListener\AuthenticationSuccessListener">
+            <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success" method="onAuthenticationSuccessResponse"></tag>
+        </service>
+    </services>
+</container>

@@ -1,0 +1,14 @@
+{
+    "name": "mouradk/delivery-api",
+    "description": "Delivery Api VIEW",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Delivery\\ApiBundle\\": ""
+        }
+    }
+}

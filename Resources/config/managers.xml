@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <service id="delivery_api.manager.category" class="Delivery\ApiBundle\Manager\CategoryManager">
+            <argument id="doctrine.orm.entity_manager" type="service"></argument>
+        </service>
+
+        <service id="Delivery\ApiBundle\Manager\CategoryManager" alias="delivery_api.manager.category"/>
+
+        <service id="delivery_api.manager.order" class="Delivery\ApiBundle\Manager\OrderManager">
+            <argument id="doctrine.orm.entity_manager" type="service"></argument>
+            <argument id="event_dispatcher" type="service"></argument>
+        </service>
+
+        <service id="Delivery\ApiBundle\Manager\OrderManager" alias="delivery_api.manager.order"/>
+
+        <service id="delivery_api.manager.file_uploader" class="Delivery\ApiBundle\Manager\File\FileUploader">
+            <argument>%image_directory%</argument>
+        </service>
+
+        <!-- hour manager interface todo -->
+        <service id="delivery_api.manager.hour_manager" class="Delivery\ApiBundle\Manager\Hour\HourManagerConfig" public="true">
+            <argument key="$hoursByDay">%app.hour.hours%</argument>
+        </service>
+
+        <service id="delivery_api.manager.product_image" class="Delivery\ApiBundle\Manager\Image\ProductImageFileManager">
+            <argument key="$noImageName">no-image.png</argument>
+            <argument key="$sourceDirectory">/images/product/default</argument>
+            <argument key="$destinationDirectory">%image_directory%</argument>
+        </service>
+
+        <service id="Delivery\ApiBundle\Manager\Image\ProductImageFileManager" alias="delivery_api.manager.product_image"/>
+    </services>
+</container>

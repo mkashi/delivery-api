@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="delivery_api.repository.city" class="Delivery\ApiBundle\Repository\CityRepository">
+            <factory service="Doctrine\ORM\EntityManagerInterface" method="getRepository"/>
+            <argument>Delivery\ApiBundle\Entity\Localisation\City</argument>
+        </service>
+
+        <service id="Delivery\ApiBundle\Repository\CityRepository" alias="delivery_api.repository.city"/>
+
+        <service id="delivery_api.repository.department" class="Delivery\ApiBundle\Repository\DepartmentRepository">
+            <factory service="Doctrine\ORM\EntityManagerInterface" method="getRepository"/>
+            <argument>Delivery\ApiBundle\Entity\Localisation\Department</argument>
+        </service>
+
+        <service id="Delivery\ApiBundle\Repository\DepartmentRepository" alias="delivery_api.repository.department"/>
+
+        <service id="delivery_api.repository.product" class="Delivery\ApiBundle\Repository\ProductRepository">
+            <factory service="Doctrine\ORM\EntityManagerInterface" method="getRepository"/>
+            <argument>Delivery\ApiBundle\Entity\Product</argument>
+        </service>
+
+        <service id="Delivery\ApiBundle\Repository\ProductRepository" alias="delivery_api.repository.product"/>
+    </services>
+</container>
