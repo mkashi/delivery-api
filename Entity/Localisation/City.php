@@ -4,6 +4,7 @@ namespace Delivery\ApiBundle\Entity\Localisation;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Delivery\ApiBundle\Repository\CityRepository")
@@ -36,6 +37,14 @@ class City
      */
     private $zip;
 
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"name", "zip"})
+     *
+     * @ORM\Column(type="string", length=150, nullable=true, unique=true)
+     */
+    private $slug;
 
     /**
      * @var Department
@@ -114,5 +123,21 @@ class City
     public function setDepartment($department)
     {
         $this->department = $department;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }
