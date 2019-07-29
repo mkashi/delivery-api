@@ -16,10 +16,6 @@
 
         <service id="Delivery\ApiBundle\Manager\OrderManager" alias="delivery_api.manager.order"/>
 
-        <service id="delivery_api.manager.file_uploader" class="Delivery\ApiBundle\Manager\File\FileUploader">
-            <argument>%image_directory%</argument>
-        </service>
-
         <!-- hour manager interface todo -->
         <service id="delivery_api.manager.hour_manager" class="Delivery\ApiBundle\Manager\Hour\HourManagerConfig" public="true">
             <argument key="$hoursByDay">%app.hour.hours%</argument>
