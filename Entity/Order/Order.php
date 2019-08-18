@@ -96,6 +96,8 @@ class Order
      */
     public function setLines($lines)
     {
+        $this->lines = [];
+
         foreach ($lines as $line) {
             $this->addLine($line);
         }

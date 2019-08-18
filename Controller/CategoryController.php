@@ -7,6 +7,7 @@ use Delivery\ApiBundle\Controller\Behaviour\ConstructTrait;
 use Delivery\ApiBundle\Entity\Category;
 use Delivery\ApiBundle\Entity\Product;
 use Delivery\ApiBundle\Form\CategoryType;
+use Delivery\ApiBundle\Manager\CategoryManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,6 +34,20 @@ class CategoryController extends Controller
         $categories = $em->getRepository(Category::class)->findAll();
 
         return $this->json($categories);
+    }
+
+    /**
+     * @Route("/published/products", name="categories_index", methods={"GET"})
+     *
+     * @param CategoryManager $categoryManager
+     * @return JsonResponse
+     */
+    public function listPublishedWithProductsPublished(CategoryManager $categoryManager)
+    {
+        return $this->json($categoryManager->getPublishedCategoriesAndProducts(), 200, [], [
+            'category.products' => true,
+            'product.category' => false,
+        ]);
     }
 
     /**

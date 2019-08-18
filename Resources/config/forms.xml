@@ -5,7 +5,10 @@
     <services>
         <service id="delivery_api.forms.image_type" class="Delivery\ApiBundle\Form\ImageType">
             <argument>%image_directory%</argument>
-            <tag name="form.type"/>
         </service>
+
+        <prototype namespace="Delivery\ApiBundle\Form\" resource="../../Form" exclude="../../Form/{ImageType*}" autowire="true">
+            <tag name="form.type"/>
+        </prototype>
     </services>
 </container>

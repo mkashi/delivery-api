@@ -20,6 +20,7 @@
         <service id="delivery_api.manager.hour_manager" class="Delivery\ApiBundle\Manager\Hour\HourManagerConfig" public="true">
             <argument key="$hoursByDay">%app.hour.hours%</argument>
         </service>
+        <service id="Delivery\ApiBundle\Manager\Hour\HourManagerConfig" alias="delivery_api.manager.hour_manager" public="true"></service>
 
         <service id="delivery_api.manager.product_image" class="Delivery\ApiBundle\Manager\Image\ProductImageFileManager">
             <argument key="$noImageName">no-image.png</argument>

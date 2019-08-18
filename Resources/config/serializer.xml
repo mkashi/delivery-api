@@ -5,19 +5,14 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <!-- city normalizer -->
-        <service id="delivery_api.serializer.normalizer.city" class="Delivery\ApiBundle\Serializer\CityNormalizer">
+        <prototype namespace="Delivery\ApiBundle\Serializer\" resource="../../Serializer" autowire="true" exclude="../../Serializer/ProductNormalizer.php">
             <tag name="serializer.normalizer"/>
-        </service>
+        </prototype>
 
-        <!-- form error normalizer -->
-        <service id="delivery_api.serializer.normalizer.form_error" class="Delivery\ApiBundle\Serializer\FormErrorNormalizer">
-            <tag name="serializer.normalizer"/>
-        </service>
-
-
-        <!-- circular reference -->
-        <service id="delivery_api.serializer.circular_reference_handler" class="Delivery\ApiBundle\Serializer\CircularReferenceHandler">
+        <service id="delivery_api.serializer.normalizer.product" class="Delivery\ApiBundle\Serializer\ProductNormalizer">
+            <argument type="service" id="liip_imagine.service.filter"></argument>
+            <argument type="service" id="delivery_api.manager.product_image"></argument>
+            <tag name="serializer.normalizer"></tag>
         </service>
     </services>
 </container>
