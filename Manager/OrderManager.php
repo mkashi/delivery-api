@@ -3,6 +3,7 @@
 namespace Delivery\ApiBundle\Manager;
 
 use Delivery\ApiBundle\Entity\Order\Order;
+use Delivery\ApiBundle\Entity\Order\OrderLine;
 use Delivery\ApiBundle\Event\OrderEvent;
 use Delivery\ApiBundle\Repository\OrderRepository;
 use Doctrine\ORM\EntityManager;
@@ -55,5 +56,18 @@ class OrderManager
         $this->em->flush();
 
         $this->dispatcher->dispatch(OrderEvent::ORDER_CREATED, new OrderEvent($order));
+    }
+
+    /**
+     * @param Order $order
+     * @param $lines
+     */
+    public function generateLines(Order $order, $lines)
+    {
+        foreach ($lines as $line) {
+            $line->setTotal($line->getProduct()->getPrice() * $line->getQuantity());
+        }
+
+        $order->setLines($lines);
     }
 }

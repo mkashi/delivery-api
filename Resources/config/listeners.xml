@@ -6,5 +6,13 @@
         <service id="delivery_api.event_listener.authentication_success" class="Delivery\ApiBundle\EventListener\AuthenticationSuccessListener">
             <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success" method="onAuthenticationSuccessResponse"></tag>
         </service>
+
+        <service id="delivery_api.event_listener.option_handler_request" class="Delivery\ApiBundle\EventListener\OptionHandlerRequest">
+            <tag name="kernel.event_listener" event="kernel.request" priority="255"></tag>
+        </service>
+
+        <service id="delivery_api.event_listener.paylaod_request_transformer" class="Delivery\ApiBundle\EventListener\PayloadRequestTransformer">
+            <tag name="kernel.event_listener" event="kernel.request" priority="254"></tag>
+        </service>
     </services>
 </container>

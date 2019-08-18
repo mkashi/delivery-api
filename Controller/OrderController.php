@@ -4,6 +4,8 @@ namespace Delivery\ApiBundle\Controller;
 
 use Delivery\ApiBundle\Controller\Behaviour\ConstructTrait;
 use Delivery\ApiBundle\Entity\Order\Order;
+use Delivery\ApiBundle\Form\Order\CreateOrderType;
+use Delivery\ApiBundle\Manager\OrderManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -78,5 +80,28 @@ class OrderController extends Controller
         $this->em->flush();
 
         return $this->json($order);
+    }
+
+    /**
+     * @Route("/new/client", name="order_create_client", methods={"POST"})
+     *
+     * @param Request      $request
+     * @param OrderManager $orderManager
+     *
+     * @return JsonResponse
+     */
+    public function createOrderForClient(Request $request, OrderManager $orderManager)
+    {
+        $order = new Order();
+        $form = $this->createForm(CreateOrderType::class, $order);
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $orderManager->generateLines($order, $order->getLines());
+            $orderManager->createOrder($order);
+
+            return $this->json($order, 200);
+        }
+
+        return $this->json($form->getErrors(), 400);
     }
 }
