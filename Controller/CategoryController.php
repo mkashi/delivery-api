@@ -37,7 +37,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/published/products", name="categories_index", methods={"GET"})
+     * @Route("/published/products", name="categories_product_published", methods={"GET"})
      *
      * @param CategoryManager $categoryManager
      * @return JsonResponse
