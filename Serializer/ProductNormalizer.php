@@ -55,6 +55,7 @@ class ProductNormalizer implements NormalizerInterface, NormalizerAwareInterface
             'position' => $object->getPosition(),
             'published' => $object->getPublished(),
             'image' => $this->filterService->getUrlOfFilteredImage($this->productImageManager->getPath($object->getDefaultImage()), 'phone_product_thumb'),
+            'slug' => $object->getSlug(),
         ];
 
         if (!empty($context['product.category'])) {

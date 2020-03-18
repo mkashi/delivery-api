@@ -6,6 +6,7 @@ use Delivery\ApiBundle\Entity\Behaviour\PositionableTrait;
 use Delivery\ApiBundle\Entity\Behaviour\PublishableTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="Delivery\ApiBundle\Repository\ProductRepository")
@@ -28,6 +29,15 @@ class Product
      * @Assert\NotBlank(message = "Champs requis")
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"name"})
+     *
+     * @ORM\Column(type="string", length=150, nullable=true, unique=true)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="decimal", scale=2, nullable=false)
@@ -182,5 +192,21 @@ class Product
     public function setDefaultImage($defaultImage)
     {
         $this->defaultImage = $defaultImage;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
     }
 }
