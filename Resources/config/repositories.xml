@@ -24,5 +24,11 @@
         </service>
 
         <service id="Delivery\ApiBundle\Repository\ProductRepository" alias="delivery_api.repository.product"/>
+
+        <service id="Delivery\ApiBundle\Repository\CategoryRepository" class="Delivery\ApiBundle\Repository\CategoryRepository">
+            <factory service="Doctrine\ORM\EntityManagerInterface" method="getRepository"/>
+            <argument>Delivery\ApiBundle\Entity\Category</argument>
+        </service>
+
     </services>
 </container>

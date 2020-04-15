@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Gis
- * Date: 06/03/2019
- * Time: 23:39
- */
 
 namespace Delivery\ApiBundle\Entity;
 
@@ -13,9 +7,10 @@ use Delivery\ApiBundle\Entity\Behaviour\PublishableTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Delivery\ApiBundle\Repository\CategoryRepository")
  * @ORM\Table(name="category")
  */
 class Category
@@ -36,6 +31,31 @@ class Category
      * @ORM\Column(type="string", length=100)
      */
     private $name;
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"name"})
+     *
+     * @ORM\Column(type="string", length=150, nullable=true, unique=true)
+     */
+    private $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="Delivery\ApiBundle\Entity\Product", mappedBy="category")
